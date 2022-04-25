@@ -19,6 +19,14 @@ describe ConnectFour do
     end
   end
 
+  context "valid input?" do
+    it "accepts 2" do
+      expect(default_game.valid_move?(2)).to eq(true)
+    end
 
+    it "refuses 7" do
+      expect(default_game.valid_move?(7)).not_to eq(true)
+    end
+  end
 
 end

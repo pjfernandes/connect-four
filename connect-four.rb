@@ -28,6 +28,14 @@ class ConnectFour
     display_board
     print "COL: "
     col = gets.chomp.to_i
+    if valid_move?(col) == false
+      puts "INVALID MOVE"
+      until valid_move?(col)
+        print "COL: "
+        col = gets.chomp.to_i
+      end
+    end
+
     if @board.column(col).all? { |x| x == "-" }
       @board[5, col] = "X"
     else
@@ -49,9 +57,16 @@ class ConnectFour
   end
 
    def player2_move
-    display_board
-    print "COL: "
-    col = gets.chomp.to_i
+      display_board
+      print "COL: "
+      col = gets.chomp.to_i
+      if valid_move?(col) == false
+        puts "INVALID MOVE"
+        until valid_move?(col)
+          print "COL: "
+          col = gets.chomp.to_i
+        end
+      end
     if @board.column(col).all? { |x| x == "-" }
       @board[5, col] = "O"
     else
@@ -71,7 +86,6 @@ class ConnectFour
     end
     display_board
   end
-
 
   def player1_row_win?
     result = nil
@@ -131,6 +145,10 @@ class ConnectFour
       end
     end
     result
+  end
+
+  def valid_move?(input)
+    (input.to_i.class == Integer) && (input >= 0 && input < 6) ? true : false
   end
 
   def display_board
