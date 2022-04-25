@@ -13,7 +13,12 @@ describe ConnectFour do
     it "board is correct" do
       expect(default_game.board).to eql(m)
     end
+
+    it "first movement" do
+      expect(default_game.player1_move).not_to eql(m)
+    end
   end
+
 
 
 end

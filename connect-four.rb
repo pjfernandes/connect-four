@@ -2,7 +2,7 @@ require 'matrix'
 
 class ConnectFour
 
-  attr_accessor :board
+  attr_reader :board
 
   def initialize
     @board = Matrix[["-", "-", "-", "-", "-", "-","-"],
