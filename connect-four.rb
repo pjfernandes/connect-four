@@ -15,26 +15,27 @@ class ConnectFour
 
   def game
     puts "GAME STARTED!"
-
-    until player1_row_win? || player2_row_win? || player1_col_win? || player2_col_win? || player1_diagonal_win? || player2_diagonal_win?
-      player1_move
-      player2_move
+    loop do
+      player1_move unless player2_row_win? || player2_col_win? || player2_diagonal_win?
+      player2_move unless player1_row_win? || player1_col_win? || player1_diagonal_win?
+      break if player1_row_win? || player2_row_win? || player1_col_win? || player2_col_win? || player1_diagonal_win? || player2_diagonal_win?
     end
-
     puts "GAME FINISHED!"
+    if player1_row_win? || player1_col_win? || player1_diagonal_win?
+      puts "PLAYER 1 WINS"
+    else
+      puts "PLAYER 2 WINS"
+    end
   end
 
   def player1_move
     display_board
-    print "COL: "
-    col = gets.chomp.to_i
+    print "PLAYER 1 CHOOSE A COLUMN> "
 
-    if valid_move?(col) == false
-      puts "INVALID MOVE"
-      until valid_move?(col)
-        print "COL: "
-        col = gets.chomp.to_i
-      end
+    col = nil
+    loop do
+      col = gets.chomp.to_i
+      break if valid_move?(col)
     end
 
     if @board.column(col).all? { |x| x == "-" }
@@ -57,17 +58,16 @@ class ConnectFour
     display_board
   end
 
-   def player2_move
-      display_board
-      print "COL: "
-      col = gets.chomp
-      if valid_move?(col) == false
-        puts "INVALID MOVE"
-        until valid_move?(col)
-          print "COL: "
-          col = gets.chomp.to_i
-        end
-      end
+  def player2_move
+    display_board
+    print "PLAYER 2 CHOOSE A COLUMN> "
+
+    col = nil
+    loop do
+      col = gets.chomp.to_i
+      break if valid_move?(col)
+    end
+
     if @board.column(col).all? { |x| x == "-" }
       @board[5, col] = "O"
     else
